@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "uid": "d3eb8b68-ea44-47b5-975a-f93ef350f111",
+      "commandName": "messageBox",
+      "packageName": "MessageBox",
+      "attributes": [
+        {
+          "name": "closeMsgBox",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": true
+          }
+        },
+        {
+          "name": "timeOut",
+          "value": {
+            "type": "NUMBER",
+            "number": "5"
+          }
+        },
+        {
+          "name": "content",
+          "value": {
+            "type": "STRING",
+            "string": "abc"
+          }
+        },
+        {
+          "name": "scrollLines",
+          "value": {
+            "type": "NUMBER",
+            "number": "30"
+          }
+        },
+        {
+          "name": "title",
+          "value": {
+            "type": "STRING",
+            "string": "API Automation"
+          }
+        }
+      ],
+      "commandId": "35",
+      "packageId": "35"
+    }
+  ],
+  "variables": [
+    {
+      "name": "prompt-assignment",
+      "description": "A variable you can use for assignments",
+      "type": "STRING",
+      "subtype": "UNDEFINED",
+      "input": false,
+      "output": false
+    }
+  ],
+  "dependencies": [],
+  "packages": [
+    {
+		"name":"MessageBox",
+      	"version": "3.1.0-20211011-141813"
+    }
+  ]
+}
