@@ -1,0 +1,37 @@
+CHECK IN COMPLETE
+_dataTier=all  _sourceCategory=*mammen* "Check in request complete for request Id:"
+ | parse "traceId\":\"*\"" as traceId
+ | json  "log.thread" as thread
+ | replace(thread,"queueReceivingThread-Consumer.repository.VirtualTopic.Repository.Internal-Consumer.repository.VirtualTopic.Repository.Internal-", "") as subscriberId
+ |formatDate(_messageTime, "MM/dd/yyyy HH:mm:ss:SSS") as messageDate 
+ |count by messageDate,traceId,subscriberId | order by messageDate
+ | fields messageDate,traceId,subscriberId
+ 
+CHECK IN FAILED
+_dataTier=all  _sourceCategory=*mammen*  "Exception is thrown during checkIn"
+ | parse "traceId\":\"*\"" as traceId
+ | json  "log.thread" as thread
+ | replace(thread,"queueReceivingThread-Consumer.repository.VirtualTopic.Repository.Internal-Consumer.repository.VirtualTopic.Repository.Internal-", "") as subscriberId
+|formatDate(_messageTime, "MM/dd/yyyy HH:mm:ss:SSS") as messageDate  
+ |count by messageDate,traceId,subscriberId | order by messageDate
+// | count_distinct(traceId) | where _count_distinct>3 | fields traceId,_count_distinct
+| fields messageDate,traceId,subscriberId    
+
+CHECK IN COMMIT Time
+_dataTier=all  _sourceCategory=*mammen* "Time spent to commitFilesToGit" 
+| parse "Time spent to commitFilesToGit * milliseconds" as timeTaken
+| parse "traceId\":\"*\"" as traceId
+| json  "log.thread" as thread
+| replace(thread,"queueReceivingThread-Consumer.repository.VirtualTopic.Repository.Internal-Consumer.repository.VirtualTopic.Repository.Internal-", "") as subscriberId
+|formatDate(_messageTime, "MM/dd/yyyy HH:mm:ss:SSS") as messageDate
+| count by messageDate,traceId,timeTaken,subscriberId | order by messageDate
+| fields messageDate,traceId,timeTaken,subscriberId
+
+CHECK IN SUCCESS
+_dataTier=all  _sourceCategory=*mammen* "Check in request complete for request Id:"
+ | parse "traceId\":\"*\"" as traceId
+ | json  "log.thread" as thread
+ | replace(thread,"queueReceivingThread-Consumer.repository.VirtualTopic.Repository.Internal-Consumer.repository.VirtualTopic.Repository.Internal-", "") as subscriberId
+ |formatDate(_messageTime, "MM/dd/yyyy HH:mm:ss:SSS") as messageDate 
+ |count by messageDate,traceId,subscriberId | order by messageDate
+ | fields messageDate,traceId,subscriberId
